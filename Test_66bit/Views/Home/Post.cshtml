@@ -1,0 +1,51 @@
+@model Footballer 
+@{ 
+   ViewBag.Title = $"Add"; 
+} 
+<h1>Add</h1>  
+
+<form asp-action="Post" method="post"> 
+   <div> 
+      <label asp-for = "Name"></label> 
+      <input asp-for = "Name" /> 
+      <span asp-validation-for = "Name"></span> 
+   </div> 
+   
+   <div>
+      <label asp-for="Surname"></label>
+      <input asp-for="Surname"/>
+      <span asp-validation-for="Surname"></span>
+   </div>
+   
+   <div>
+         <label asp-for="Birthday"></label>
+         <input asp-for="Birthday" type="date"/>
+         <span asp-validation-for="Surname"></span>
+      </div>
+   
+   <div>
+         <label asp-for="Country">Gender: </label>
+         <select name="Gender">
+             @foreach (var gender in Enum.GetValues(typeof(Gender)))
+              {
+                 <option value="@gender">@gender</option>
+              }
+         </select>
+   </div>
+    
+   <div >
+      <label asp-for="Country">Country: </label>
+      <select name="Country">
+         <option value="Empty">Добавить свою команду</option>
+         @foreach (var country in Enum.GetValues(typeof(Country)))
+         {
+            <option value="@country">@country</option>
+         }
+         
+      </select>
+   </div>
+
+   <div> 
+      <input type = "submit" value = "Save" /> 
+   </div> 
+</form>

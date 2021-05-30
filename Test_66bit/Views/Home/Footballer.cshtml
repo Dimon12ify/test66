@@ -1,0 +1,22 @@
+@model Footballer
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+      @Model.Name
+      @Model.Surname
+      @Model.Birthday.ToShortDateString()
+      @Model.Country
+      @Model.Gender
+</div>
+</body>
+</html>
