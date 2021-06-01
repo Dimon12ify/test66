@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Test_66bit.Models
@@ -6,12 +7,12 @@ namespace Test_66bit.Models
     public class Footballer
     {
         public long Id { get; set; }
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public Gender Gender { get; set; }
         public DateTime Birthday { get; set; }
-        public long TeamId { get; set; }
-        public virtual Team Team { get; set; }
+        public string Team { get; set; }
         
         public Country Country { get; set; }
     }
@@ -26,7 +27,6 @@ namespace Test_66bit.Models
     {
         Russia,
         Usa,
-        Italy,
-        Empty
+        Italy
     }
 }

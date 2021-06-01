@@ -1,0 +1,61 @@
+@model System.Collections.Generic.IEnumerable<Test_66bit.Models.Footballer>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Footballers List";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+<body>
+<h2>@ViewData["Title"]</h2>
+<div>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Country</th>
+            <th>Team</th>
+            <th>Option</th>
+        </tr>
+        @foreach (var footballer in Model)
+        {
+            <tr>
+                <div>
+                    <td>
+                        @footballer.Id
+                    </td>
+                    <td>
+                        @footballer.Name
+                    </td>
+                    <td>
+                        @footballer.Surname
+                    </td>
+                    <td>
+                        @footballer.Gender
+                    </td>
+                    <td>
+                        @footballer.Birthday.ToShortDateString()
+                    </td>
+                    <td>
+                        @footballer.Country
+                    </td>
+                    <td>
+                        @footballer.Team
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Footballer", new {id = footballer.Id})">EDIT</a>
+                    </td>
+                </div>
+            </tr>
+        }
+    </table>
+</div>
+</body>
+</html>

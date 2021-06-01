@@ -28,8 +28,8 @@ namespace Test_66bit
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>();
             services.AddControllersWithViews();
-            services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration["database:connection"]));
             services.AddTransient<ITeams, TeamRepository>();
             services.AddTransient<IFootballers, FootballerRepository>();
         }
@@ -59,7 +59,7 @@ namespace Test_66bit
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Footballer}/{action=List}/{id?}");
             });
         }
     }

@@ -16,7 +16,15 @@ namespace Test_66bit.Repositories
         }
 
         public IEnumerable<Team> All => _context.Teams;
+
+        public IEnumerable<string> AllNames => _context.Teams.Select(f => f.Name);
         public Team GetTeamById(long teamId) => 
             _context.Teams.FirstOrDefault(f => f.Id == teamId);
+
+        public void Add(Team team)
+        {
+            _context.Teams.Add(team);
+            _context.SaveChanges();
+        }
     }
 }

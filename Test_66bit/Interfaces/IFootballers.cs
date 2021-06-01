@@ -9,5 +9,8 @@ namespace Test_66bit.Interfaces
         IEnumerable<Footballer> All { get; }
         Footballer GetFootballerById(long footballerId);
 
+        void Add(Footballer footballer);
+
+        void Edit(Footballer footballer);
     }
 }
