@@ -16,7 +16,7 @@ namespace Test_66bit.Repositories
             _context = context;
         }
 
-        public IEnumerable<Footballer> All => _context.Footballers;
+        public IEnumerable<Footballer> All => _context.Footballers.OrderBy(f => f.Id);
 
         public Footballer GetFootballerById(long footballerId) =>
             _context.Footballers.FirstOrDefault(f => f.Id == footballerId);
@@ -29,13 +29,6 @@ namespace Test_66bit.Repositories
 
         public void Edit(Footballer footballer)
         {
-            /*var oldFootballer = _context.Footballers.FirstOrDefault(f => f.Id == footballerId);
-            oldFootballer.Birthday = footballer.Birthday;
-            oldFootballer.Country = footballer.Country;
-            oldFootballer.Gender = footballer.Gender;
-            oldFootballer.Name = footballer.Name;
-            oldFootballer.Surname = footballer.Surname;
-            oldFootballer.Team = footballer.Team;*/
             _context.Entry(footballer).State = EntityState.Modified;
             _context.SaveChanges();
         }

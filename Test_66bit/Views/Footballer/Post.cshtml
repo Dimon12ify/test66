@@ -1,9 +1,9 @@
 @model Footballer
 
-@{ 
-   ViewBag.Title = $"Add";
+@{
+   ViewData["Title"] = "Add footballer";
 } 
-<h1>Add</h1>
+<h2>@ViewData["Title"]</h2>
 <form asp-action="Post" method="post">
    
    <div>
@@ -68,6 +68,6 @@
       </div>
 
    <div>
-      <input type="submit" value="Save"/>
+      <input type="submit" value="Add"/>
    </div>
 </form>
