@@ -1,0 +1,63 @@
+Index: Test_66bit/Models/Footballer.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\nusing Microsoft.AspNetCore.Mvc;\n\nnamespace Test_66bit.Models\n{\n    public class Footballer\n    {\n        public long Id { get; set; }\n        public string Name { get; set; }\n        public string Surname { get; set; }\n        public Gender Gender { get; set; }\n        public DateTime Birthday { get; set; }\n        public long TeamId { get; set; }\n        public virtual Team Team { get; set; }\n        \n        public Country Country { get; set; }\n    }\n\n    public enum Gender\n    {\n        Male,\n        Female\n    }\n\n    public enum Country\n    {\n        Russia,\n        Usa,\n        Italy,\n        Empty\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Test_66bit/Models/Footballer.cs b/Test_66bit/Models/Footballer.cs
+--- a/Test_66bit/Models/Footballer.cs	(revision 36e9c2e20607bae8a6b6fd51f32c7137e6bde305)
++++ b/Test_66bit/Models/Footballer.cs	(date 1622867098900)
+@@ -1,4 +1,5 @@
+ using System;
++using System.ComponentModel.DataAnnotations;
+ using Microsoft.AspNetCore.Mvc;
+ 
+ namespace Test_66bit.Models
+@@ -24,9 +25,10 @@
+ 
+     public enum Country
+     {
++        [Display(Name = "Россия")]
+         Russia,
++        [Display(Name = "США")]
+         Usa,
+-        Italy,
+-        Empty
++        Italy
+     }
+ }
+\ No newline at end of file
+Index: Test_66bit/Views/Home/Footballer.cshtml
+===================================================================
+diff --git a/Test_66bit/Views/Home/Footballer.cshtml b/Test_66bit/Views/Home/Footballer.cshtml
+deleted file mode 100644
+--- a/Test_66bit/Views/Home/Footballer.cshtml	(revision 36e9c2e20607bae8a6b6fd51f32c7137e6bde305)
++++ /dev/null	(revision 36e9c2e20607bae8a6b6fd51f32c7137e6bde305)
+@@ -1,22 +0,0 @@
+-@model Footballer
+-
+-@{
+-    Layout = null;
+-}
+-
+-<!DOCTYPE html>
+-
+-<html>
+-<head>
+-    <title>title</title>
+-</head>
+-<body>
+-<div>
+-      @Model.Name
+-      @Model.Surname
+-      @Model.Birthday.ToShortDateString()
+-      @Model.Country
+-      @Model.Gender
+-</div>
+-</body>
+-</html>
+\ No newline at end of file
+diff --git a/Test_66bit/Views/Home/Post.cshtml b/Test_66bit/Views/Home/Add.cshtml
+rename from Test_66bit/Views/Home/Post.cshtml
+rename to Test_66bit/Views/Home/Add.cshtml

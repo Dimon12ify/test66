@@ -25,8 +25,11 @@ namespace Test_66bit.Models
 
     public enum Country
     {
+        [Display(Name = "Russia")]
         Russia,
+        [Display(Name = "USA")]
         Usa,
+        [Display(Name = "Italy")]
         Italy
     }
 }

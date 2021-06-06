@@ -1,10 +1,7 @@
 @model Footballer
 
-@{
-   ViewData["Title"] = "Add footballer";
-} 
 <h2>@ViewData["Title"]</h2>
-<form asp-action="Post" method="post">
+<form asp-action="@ViewData["Type"]" method="post">
    
    <div>
       <label asp-for="Name"></label>
@@ -37,7 +34,7 @@
    <div>
       <label asp-for="Country"></label>
       <select asp-for="Country">
-         @foreach (var country in Enum.GetValues(typeof(Country)))
+         @foreach (var country in Enum.GetNames(typeof(Country)))
          {
             <option value="@country">@country</option>
          }
@@ -68,6 +65,6 @@
       </div>
 
    <div>
-      <input type="submit" value="Add"/>
+      <input type="submit" value="@ViewData["Type"]"/>
    </div>
 </form>

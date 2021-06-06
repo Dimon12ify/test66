@@ -6,7 +6,7 @@ using Test_66bit.Models;
 
 namespace Test_66bit.Repositories
 {
-    public class TeamRepository : ITeams
+    public class TeamRepository : ITeamRepository
     {
         private readonly AppDbContext _context;
         
@@ -18,7 +18,7 @@ namespace Test_66bit.Repositories
         public IEnumerable<Team> All => _context.Teams;
 
         public IEnumerable<string> AllNames => _context.Teams.Select(f => f.Name);
-        public Team GetTeamById(long teamId) => 
+        public Team GetById(long teamId) => 
             _context.Teams.FirstOrDefault(f => f.Id == teamId);
 
         public void Add(Team team)
