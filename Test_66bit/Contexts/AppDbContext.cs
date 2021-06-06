@@ -10,8 +10,8 @@ namespace Test_66bit.Contexts
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            SampleData.Initialize(this);
             Database.EnsureCreated();
+            SampleData.Initialize(this);
         }
     }
 }

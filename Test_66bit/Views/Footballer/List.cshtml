@@ -44,7 +44,10 @@
                         @footballer.Birthday.ToShortDateString()
                     </td>
                     <td>
-                        @footballer.Country
+                        @{
+                            var country = EnumHelper<Country>.GetDisplayValue(footballer.Country);
+                            @country
+                        }
                     </td>
                     <td>
                         @footballer.Team

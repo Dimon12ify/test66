@@ -34,10 +34,11 @@
    <div>
       <label asp-for="Country"></label>
       <select asp-for="Country">
-         @foreach (var country in Enum.GetNames(typeof(Country)))
-         {
-            <option value="@country">@country</option>
-         }
+         @foreach (var value in @EnumHelper<Country>.GetValues(Country.Russia))
+             {
+                var displayName = EnumHelper<Country>.GetDisplayValue(value);
+                <option value="@value">@displayName</option>
+             }
       </select>
    </div>
    
