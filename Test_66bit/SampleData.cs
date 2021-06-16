@@ -30,7 +30,7 @@ namespace Test_66bit
                         Birthday = DateTime.Parse("2000-01-01"),
                         Country = Country.Italy,
                         Gender = Gender.Male,
-                        Team = "ProTeam"
+                        Team = context.Teams.FirstOrDefault(f => f.Name == "ProTeam")
                     });
             }
 

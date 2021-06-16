@@ -1,4 +1,6 @@
-@model System.Collections.Generic.IEnumerable<Test_66bit.Models.Footballer>
+@using Test_66bit.Interfaces
+@inject ITeamService _service
+@inject IFootballerRepository _repository;
 
 @{
     Layout = "_Layout";
@@ -7,13 +9,17 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
+    <title>@ViewData["Title"]</title>
 </head>
 <body>
 <h2>@ViewData["Title"]</h2>
+@{
+    var footballers = _repository.All.ToList();
+}
 <div>
-    <table>
+    <table border="2">
         <tr>
             <th>Id</th>
             <th>Name</th>
@@ -24,38 +30,36 @@
             <th>Team</th>
             <th>Option</th>
         </tr>
-        @foreach (var footballer in Model)
+        @foreach (var footballer in footballers)
         {
             <tr>
-                <div>
-                    <td>
-                        @footballer.Id
-                    </td>
-                    <td>
-                        @footballer.Name
-                    </td>
-                    <td>
-                        @footballer.Surname
-                    </td>
-                    <td>
-                        @footballer.Gender
-                    </td>
-                    <td>
-                        @footballer.Birthday.ToShortDateString()
-                    </td>
-                    <td>
-                        @{
-                            var country = EnumHelper<Country>.GetDisplayValue(footballer.Country);
-                            @country
-                        }
-                    </td>
-                    <td>
-                        @footballer.Team
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit", "Footballer", new {id = footballer.Id})">EDIT</a>
-                    </td>
-                </div>
+                <td>
+                    @footballer.Id
+                </td>
+                <td>
+                    @footballer.Name
+                </td>
+                <td>
+                    @footballer.Surname
+                </td>
+                <td>
+                    @footballer.Gender
+                </td>
+                <td>
+                    @footballer.Birthday.ToShortDateString()
+                </td>
+                <td>
+                    @{
+                        var country = EnumHelper<Country>.GetDisplayValue(footballer.Country);
+                        @country
+                    }
+                </td>
+                <td>
+                    @_service.GetNameById(footballer.TeamId)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Footballer", new {id = footballer.Id})">EDIT</a>
+                </td>
             </tr>
         }
     </table>

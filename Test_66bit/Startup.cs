@@ -13,6 +13,7 @@ using Test_66bit.Contexts;
 using Test_66bit.Interfaces;
 using Test_66bit.Models;
 using Test_66bit.Repositories;
+using Test_66bit.Services;
 
 namespace Test_66bit
 {
@@ -31,6 +32,7 @@ namespace Test_66bit
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<DbContext, AppDbContext>();
             services.AddControllersWithViews();
+            services.AddTransient<ITeamService, TeamService>();
             services.AddTransient<ITeamRepository, TeamRepository>();
             services.AddTransient<IFootballerRepository, FootballerRepository>();
         }

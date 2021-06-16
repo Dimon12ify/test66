@@ -3,31 +3,32 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Test_66bit.Interfaces;
 using Test_66bit.Models;
+using Test_66bit.Services;
+using static System.String;
 
 namespace Test_66bit.Controllers
 {
     public class FootballerController : Controller
     {
         private readonly IFootballerRepository _footballerRepository;
-        private readonly ITeamRepository _teamRepository;
+        private readonly ITeamService _teamService;
 
-        public FootballerController(IFootballerRepository footballerRepository, ITeamRepository teamRepository)
+        public FootballerController(IFootballerRepository footballerRepository, ITeamService teamService)
         {
             _footballerRepository = footballerRepository;
-            _teamRepository = teamRepository;
+            _teamService = teamService;
         }
 
         [HttpGet]
         public IActionResult List()
         {
-            return View(_footballerRepository.All);
+            return View();
         }
 
         [HttpGet]
         public IActionResult Edit(long id)
         {
             var footballer = _footballerRepository.GetById(id);
-            ViewBag.Teams = _teamRepository.AllNames.Append("Add Team").ToList();
             ViewData["Title"] = "Edit footballer";
             ViewData["Type"] = "Edit";
             return View("AddOrEdit",footballer);
@@ -40,7 +41,6 @@ namespace Test_66bit.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Teams = _teamRepository.AllNames.Append("Add Team").ToList();
             ViewData["Title"] = "Add footballer";
             ViewData["Type"] = "Add";
             return View("AddOrEdit");
@@ -51,18 +51,15 @@ namespace Test_66bit.Controllers
 
         private IActionResult AddOrEdit(Footballer footballer, string teamName, ActionType type)
         {
-            if (ModelState.IsValid)
-            {  
-                if (footballer.Team == "Add Team")
-                {
-                    if (!_teamRepository.AllNames.Any(f => string.Equals(f, teamName, StringComparison.CurrentCultureIgnoreCase)))
-                        _teamRepository.Add(new Team{Name = teamName});
-                    footballer.Team = teamName;
-                }
+            if (!IsNullOrEmpty(teamName) && ModelState.IsValid)
+            {
+                _teamService.AddTeam(teamName);
+                footballer.TeamId = _teamService.GetByName(teamName).Id;
                 _footballerRepository.AddOrEdit(footballer, type);
                 return RedirectToAction("List");
             }
             ViewData["Title"] = type == ActionType.Edit ? "Edit footballer" : "Add footballer";
+            ViewData["Type"] = type == ActionType.Edit ? "Edit" : "Add";
             return View("AddOrEdit");
         }
         

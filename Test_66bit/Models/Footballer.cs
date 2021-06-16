@@ -8,11 +8,18 @@ namespace Test_66bit.Models
     {
         public long Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Surname { get; set; }
+        [Required]
         public Gender Gender { get; set; }
+        [Required]
         public DateTime Birthday { get; set; }
-        public string Team { get; set; }
+        
+        public long TeamId { get; set; }
+        public Team Team { get; set; }
+        [Required]
         
         public Country Country { get; set; }
     }
