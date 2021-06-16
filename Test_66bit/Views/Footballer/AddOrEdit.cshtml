@@ -60,15 +60,11 @@
 
     <div class="row g-3 align-items-center">
         <div class="col-auto">
-          <label class="col-form-label" for="inputCountry">Country</label>
+          <label class="col-form-label" asp-for="Country">Country</label>
         </div>
           <div class="col-auto">
-          <select asp-for="Country">
-            @foreach (var value in EnumHelper<Country>.GetValues(Country.Russia))
-            {
-                var displayName = EnumHelper<Country>.GetDisplayValue(value);
-                <option value="@value" id="inputCountry">@displayName</option>
-            }
+          <select asp-for="Country" asp-items="Html.GetEnumSelectList<Country>()">
+            
         </select>
         </div>
     </div>

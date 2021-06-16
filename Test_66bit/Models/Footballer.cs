@@ -36,7 +36,7 @@ namespace Test_66bit.Models
         Russia,
         [Display(Name = "США")]
         Usa,
-        [Display(Name = "Италия")]
+        [Display(Name = "Италия1")]
         Italy
     }
 }
