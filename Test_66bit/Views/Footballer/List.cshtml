@@ -63,6 +63,20 @@
             </tr>
         }
     </table>
+
+    <script src="~/lib/signalR/signalr.min.js"></script>
+    <script>
+            const hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl("https://localhost:5001/chat")
+                .build();
+     
+            hubConnection.on("Receive", function (data) {
+                if (location.href === '@Url.Action("List")' || "/" || "") {
+                    location.href='@Url.Action("List")';
+                }
+            });
+            hubConnection.start();
+        </script>
 </div>
 </body>
 </html>

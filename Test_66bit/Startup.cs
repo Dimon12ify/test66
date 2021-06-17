@@ -31,6 +31,7 @@ namespace Test_66bit
             services.AddDbContext<AppDbContext>(options => 
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<DbContext, AppDbContext>();
+            services.AddSignalR();
             services.AddControllersWithViews();
             services.AddTransient<ITeamService, TeamService>();
             services.AddTransient<ITeamRepository, TeamRepository>();
@@ -58,6 +59,7 @@ namespace Test_66bit
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Footballer}/{action=List}/{id?}");
+                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }

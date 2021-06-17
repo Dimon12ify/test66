@@ -2,9 +2,10 @@
 @model Footballer
 @inject ITeamRepository _repository
 
-<head xmlns="http://www.w3.org/1999/html">
+
+<head>
     <meta charset="utf-8">
-    <title>Test_66bit</title>
+    <title>@ViewData["Title"]</title>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
     <script>
@@ -18,66 +19,61 @@
 <h2>@ViewData["Title"]</h2>
 <form autocomplete="off" asp-action="@ViewData["Type"]" method="post">
     <div class="row g-3 align-items-center">
-      <div class="col-auto">
-        <label for="inputName" class="col-form-label">Name</label>
-      </div>
-      <div class="col-auto">
-        <input asp-for="Name" type="text" id="inputName" class="form-control">
-      </div>
-    </div>
-
-    <div class="row g-3 align-items-center">
-          <div class="col-auto">
-            <label for="inputSurname" class="col-form-label">Surname</label>
-          </div>
-          <div class="col-auto">
-            <input asp-for="Surname" type="text" id="inputSurname" class="form-control">
-          </div>
-    </div>
-
-    <div class="row g-3 align-items-center">
-          <div class="col-auto">
-            <label for="inputBirthday" class="col-form-label">Birthday</label>
-          </div>
-          <div class="col-auto">
-            <input asp-for="Birthday" type="date" id="inputBirthday" class="form-control">
-          </div>
-    </div>
-
-    <div class="row g-3 align-items-center">
-      <div class="col-auto">
-        <label class="col-form-label" for="inputGender">Gender</label>
-      </div>
-      <div class="col-auto">
-        <select asp-for="Gender">
-          @foreach (var gender in Enum.GetValues(typeof(Gender)))
-          {
-            <option value="@gender" id="inputGender">@gender</option>
-          }
-        </select>
-      </div>
+        <div class="col-auto">
+            <label for="inputName" class="col-form-label">Name</label>
+        </div>
+        <div class="col-auto">
+            <input asp-for="Name" type="text" id="inputName" class="form-control">
+        </div>
     </div>
 
     <div class="row g-3 align-items-center">
         <div class="col-auto">
-          <label class="col-form-label" asp-for="Country">Country</label>
+            <label for="inputSurname" class="col-form-label">Surname</label>
         </div>
-          <div class="col-auto">
-          <select asp-for="Country" asp-items="Html.GetEnumSelectList<Country>()">
-            
-        </select>
+        <div class="col-auto">
+            <input asp-for="Surname" type="text" id="inputSurname" class="form-control">
+        </div>
+    </div>
+
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <label for="inputBirthday" class="col-form-label">Birthday</label>
+        </div>
+        <div class="col-auto">
+            <input asp-for="Birthday" type="date" id="inputBirthday" class="form-control">
+        </div>
+    </div>
+
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <label class="col-form-label" for="inputGender">Gender</label>
+        </div>
+        <div class="col-auto">
+            <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()">
+            </select>
+        </div>
+    </div>
+
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <label class="col-form-label" asp-for="Country">Country</label>
+        </div>
+        <div class="col-auto">
+            <select asp-for="Country" asp-items="Html.GetEnumSelectList<Country>()">
+            </select>
         </div>
     </div>
 
     <div>
         <label>Team: </label>
-      <div class="autocomplete" style="width:300px;">
-        @{
-          var text = (string) ViewData["Type"] == "Edit" ? _repository.GetById(Model.TeamId).Name : "";
-          var placeholder = (string) ViewData["Type"] == "Add" ? "Input team name" : text;
-          <input id="team" type="text" name="teamName" placeholder="@placeholder" value="@text">
-        }
-      </div>
+        <div class="autocomplete" style="width:300px;">
+            @{
+                var text = (string) ViewData["Type"] == "Edit" ? _repository.GetById(Model.TeamId).Name : "";
+                var placeholder = (string) ViewData["Type"] == "Add" ? "Input team name" : text;
+                <input id="team" type="text" name="teamName" placeholder="@placeholder" value="@text">
+            }
+        </div>
     </div>
 
     <div>

@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Test_66bit.Interfaces;
 using Test_66bit.Models;
 using Test_66bit.Services;
@@ -12,11 +14,13 @@ namespace Test_66bit.Controllers
     {
         private readonly IFootballerRepository _footballerRepository;
         private readonly ITeamService _teamService;
+        private readonly IHubContext<ChatHub> _hubContext;
 
-        public FootballerController(IFootballerRepository footballerRepository, ITeamService teamService)
+        public FootballerController(IFootballerRepository footballerRepository, ITeamService teamService, IHubContext<ChatHub> hubContext)
         {
             _footballerRepository = footballerRepository;
             _teamService = teamService;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -35,7 +39,7 @@ namespace Test_66bit.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Footballer footballer, string teamName) =>
+        public Task<IActionResult> Edit(Footballer footballer, string teamName) =>
             AddOrEdit(footballer, teamName, ActionType.Edit);
 
         [HttpGet]
@@ -47,15 +51,17 @@ namespace Test_66bit.Controllers
         }
         
         [HttpPost]
-        public IActionResult Add(Footballer input, string teamName) => AddOrEdit(input, teamName, ActionType.Add);
+        public Task<IActionResult> Add(Footballer input, string teamName) => AddOrEdit(input, teamName, ActionType.Add);
 
-        private IActionResult AddOrEdit(Footballer footballer, string teamName, ActionType type)
+        private async Task<IActionResult> AddOrEdit(Footballer footballer, string teamName, ActionType type)
         {
+            teamName = teamName.Trim();
             if (!IsNullOrEmpty(teamName) && ModelState.IsValid)
             {
                 _teamService.AddTeam(teamName);
                 footballer.TeamId = _teamService.GetByName(teamName).Id;
                 _footballerRepository.AddOrEdit(footballer, type);
+                await _hubContext.Clients.All.SendAsync("Receive");
                 return RedirectToAction("List");
             }
             ViewData["Title"] = type == ActionType.Edit ? "Edit footballer" : "Add footballer";
