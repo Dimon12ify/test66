@@ -19,23 +19,23 @@
     var footballers = _repository.All.ToList();
 }
 <div>
-    <table border="2">
+    <table border="1" class="table">
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Gender</th>
-            <th>Birthday</th>
-            <th>Country</th>
-            <th>Team</th>
-            <th>Option</th>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Country</th>
+            <th scope="col">Team</th>
+            <th scope="col">Option</th>
         </tr>
         @foreach (var footballer in footballers)
         {
             <tr>
-                <td>
+                <th scope="row">
                     @footballer.Id
-                </td>
+                </th>
                 <td>
                     @footballer.Name
                 </td>
