@@ -25,6 +25,9 @@
         <div class="col-auto">
             <input asp-for="Name" type="text" id="inputName" class="form-control">
         </div>
+        <div>
+            <p class="text-danger">@Html.ValidationMessageFor(m => m.Name)</p>
+        </div>
     </div>
 
     <div class="row g-3 align-items-center">
@@ -34,6 +37,9 @@
         <div class="col-auto">
             <input asp-for="Surname" type="text" id="inputSurname" class="form-control">
         </div>
+        <div>
+            <p class="text-danger">@Html.ValidationMessageFor(m => m.Surname)</p>
+        </div>
     </div>
 
     <div class="row g-3 align-items-center">
@@ -42,6 +48,9 @@
         </div>
         <div class="col-auto">
             <input asp-for="Birthday" type="date" id="inputBirthday" class="form-control">
+        </div>
+        <div>
+            <p class=".text-danger">@Html.ValidationMessageFor(m => m.Birthday)</p>
         </div>
     </div>
 
@@ -65,14 +74,19 @@
         </div>
     </div>
 
-    <div>
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
         <label class="col-form-label" for="team">Team </label>
-        <div class="autocomplete " width="300">
+        </div>
+        <div class="autocomplete" width="300">
             @{
                 var text = (string) ViewData["Type"] == "Edit" ? _repository.GetById(Model.TeamId).Name : "";
                 var placeholder = (string) ViewData["Type"] == "Add" ? "Input team name" : text;
                 <input id="team" class="form-control" type="text" name="teamName" placeholder="@placeholder" value="@text">
             }
+        </div>
+        <div>
+            <p class="text-danger">@Html.ValidationMessageFor(m => m.Team)</p>
         </div>
     </div>
 
