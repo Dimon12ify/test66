@@ -55,7 +55,7 @@ namespace Test_66bit.Controllers
 
         private async Task<IActionResult> AddOrEdit(Footballer footballer, string teamName, ActionType type)
         {
-            if (!IsNullOrEmpty(teamName) && ModelState.IsValid && footballer.Birthday >= DateTime.Now.AddYears(-14))
+            if (!IsNullOrEmpty(teamName) && ModelState.IsValid && footballer.Birthday <= DateTime.Now.AddYears(-14))
             {
                 teamName = teamName.Trim();
                 _teamService.AddTeam(teamName);
@@ -70,7 +70,7 @@ namespace Test_66bit.Controllers
                 ModelState.AddModelError(nameof(footballer.Name), "Footballer name can't be empty");
             if(IsNullOrEmpty(footballer.Surname))
                 ModelState.AddModelError(nameof(footballer.Surname), "Footballer surname can't be empty");
-            if(footballer.Birthday < DateTime.Now.AddYears(-14))
+            if(footballer.Birthday > DateTime.Now.AddYears(-14))
                 ModelState.AddModelError(nameof(footballer.Birthday), "Footballer should be older then 14 years");
             ViewData["Title"] = type == ActionType.Edit ? "Edit footballer" : "Add footballer";
             ViewData["Type"] = type == ActionType.Edit ? "Edit" : "Add";
