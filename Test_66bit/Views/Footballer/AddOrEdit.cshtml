@@ -15,9 +15,9 @@
     </script>
     <link rel="stylesheet" href="~/css/edit.css">
 </head>
-
 <h2>@ViewData["Title"]</h2>
 <form autocomplete="off" asp-action="@ViewData["Type"]" method="post">
+    <fieldset>
     <div class="row g-3 align-items-center">
         <div class="col-auto">
             <label for="inputName" class="col-form-label">Name</label>
@@ -66,12 +66,12 @@
     </div>
 
     <div>
-        <label>Team: </label>
-        <div class="autocomplete" style="width:300px;">
+        <label class="col-form-label" for="team">Team </label>
+        <div class="autocomplete " width="300">
             @{
                 var text = (string) ViewData["Type"] == "Edit" ? _repository.GetById(Model.TeamId).Name : "";
                 var placeholder = (string) ViewData["Type"] == "Add" ? "Input team name" : text;
-                <input id="team" type="text" name="teamName" placeholder="@placeholder" value="@text">
+                <input id="team" class="form-control" type="text" name="teamName" placeholder="@placeholder" value="@text">
             }
         </div>
     </div>
@@ -79,4 +79,5 @@
     <div>
         <input type="submit" class="btn btn-primary btn-sm" value="@ViewData["Type"]"/>
     </div>
+    </fieldset>
 </form>
